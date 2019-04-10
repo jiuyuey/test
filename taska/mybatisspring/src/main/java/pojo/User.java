@@ -1,14 +1,12 @@
 package pojo;
 
-import java.util.List;
-
 public class User {
     //此类配置要与数据表配置匹配
     private int id;
     private String name;
     private String password;
-    private int createat;
-    private int updateat;
+    private Long createat;
+    private Long updateat;
 
     public int getId() {
         return id;
@@ -34,19 +32,20 @@ public class User {
         this.password = password;
     }
 
-    public int getCreateat() {
+
+    public Long getCreateat() {
         return createat;
     }
 
-    public void setCreateat(int createat) {
+    public void setCreateat(Long createat) {
         this.createat = createat;
     }
 
-    public int getUpdateat() {
+    public Long getUpdateat() {
         return updateat;
     }
 
-    public void setUpdateat(int updateat) {
+    public void setUpdateat(Long updateat) {
         this.updateat = updateat;
     }
 

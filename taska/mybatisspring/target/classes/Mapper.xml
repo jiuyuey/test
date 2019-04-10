@@ -20,7 +20,7 @@
             resultType="pojo.User">
            DELETE FROM user <where>
            <if test="id != null and id != ''">id=#{id}</if>
-           <if test="name != null and name != ''">and name=#{name}</if>
+           <if test="name != null and name != ''">or name=#{name}</if>
     </where>
     </select>
 <!--更新-->

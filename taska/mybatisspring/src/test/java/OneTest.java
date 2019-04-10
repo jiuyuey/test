@@ -40,8 +40,8 @@ public class OneTest {
     public void test_delete(){
         UserService service = (UserService) applicationContext.getBean("userServiceImpl");
         User user = new User();
-        user.setId(4);
-        user.setName("dd");
+        user.setId(1);
+        user.setName("ddd");
         service.delete(user);
         System.out.println("删除完成");
     }
@@ -79,8 +79,8 @@ public class OneTest {
             User user = new User();
             user.setName("dhdshtrhtjhdyd");
             user.setPassword("dggedagergbergbg");
-            user.setCreateat(2018);
-            user.setUpdateat(2019);
+            user.setCreateat(2018L);
+            user.setUpdateat(2019L);
             service.inserttest(Collections.singletonList(user));
         }//利用自增自动增加id数
     }

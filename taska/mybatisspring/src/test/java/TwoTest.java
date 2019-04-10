@@ -15,14 +15,14 @@ public class TwoTest {
 
     @Test//批量增加
     public void test_insert_test()throws Exception{
-        for (int y = 0;y <= 3;y++) {
+        for (int y = 0;y <= 1000;y++) {
             List<User> list = new ArrayList<>();
-            for (int x = 0;x <= 10;x++){
+            for (int x = 0;x <= 1000;x++){
                 User user = new User();
                 user.setName("dhdshtrhtjhdyd");
                 user.setPassword("dggedagergbergbg");
-                user.setCreateat(2017);
-                user.setUpdateat(2018);
+                user.setCreateat(2017L);
+                user.setUpdateat(2018L);
                 list .add(user);
             }
             userService.inserttest(list);
