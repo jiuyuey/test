@@ -1,9 +1,9 @@
-import Dao.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pojo.User;
+import service.UserService;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,8 +20,8 @@ public class OneTest {
 
     @Test//根据名字（信息）查询
     public void test_findAll(){
-        Mapper mapper = applicationContext.getBean(Mapper.class);
-        List<User> user = mapper.findAll("aaa");
+        UserService service = (UserService) applicationContext.getBean("userServiceImpl");
+        List<User> user = service.findAll("aaa");
         for(User user1 :user){
             System.out.println(user1.getName());
         }
@@ -29,67 +29,67 @@ public class OneTest {
 
     @Test//id查询  动态sql语句
     public void test_findById(){
-        Mapper mapper = applicationContext.getBean(Mapper.class);
+        UserService service = (UserService) applicationContext.getBean("userServiceImpl");
         User user = new User();
         user.setName("55");
-        mapper.findById(user);
-        System.out.println(mapper.findById(user));
+        service.findById(user);
+        System.out.println(service.findById(user));
     }
 
     @Test//删除 动态sql语句
     public void test_delete(){
-        Mapper mapper = applicationContext.getBean(Mapper.class);
+        UserService service = (UserService) applicationContext.getBean("userServiceImpl");
         User user = new User();
         user.setId(4);
         user.setName("dd");
-        mapper.delete(user);
+        service.delete(user);
         System.out.println("删除完成");
     }
 
     @Test//更新id所在行表数据
     public void test_update(){
-        Mapper mapper = applicationContext.getBean(Mapper.class);
+        UserService service = (UserService) applicationContext.getBean("userServiceImpl");
         User user = new User();
         user.setId(4);
         user.setName("dd");
         user.setPassword("mn");
-        mapper.update(user);
+        service.update(user);
     }
 
     @Test//查询全部
     public void test_all(){
-        Mapper mapper = applicationContext.getBean(Mapper.class);
-        List<User> user = mapper.all();
+        UserService service = (UserService) applicationContext.getBean("userServiceImpl");
+        List<User> user = service.all();
         System.out.println(user.toString());
     }
 
     @Test//增加
     public void test_insert(){
-        Mapper mapper = applicationContext.getBean(Mapper.class);
+        UserService service = (UserService) applicationContext.getBean("userServiceImpl");
         User user = new User();
         user.setName("dd");
         user.setPassword("mn");
-        mapper.insert(user);
+        service.insert(user);
     }//利用自增增加id数
 
     @Test//批量增加
     public void test_insert_test(){
-        for (int x = 0;x < 1000;x++){
-            Mapper mapper = applicationContext.getBean(Mapper.class);
+        for (int x = 0;x < 10;x++){
+            UserService service = (UserService) applicationContext.getBean("userServiceImpl");
             User user = new User();
             user.setName("dhdshtrhtjhdyd");
             user.setPassword("dggedagergbergbg");
             user.setCreateat(2018);
             user.setUpdateat(2019);
-            mapper.inserttest(Collections.singletonList(user));
+            service.inserttest(Collections.singletonList(user));
         }//利用自增自动增加id数
     }
 
     @Test//批量删除
     public void test_delete_test(){
         for (int x=1;x < 10;x++){
-            Mapper mapper = applicationContext.getBean(Mapper.class);
-            User user = mapper.deletetest(x);
+            UserService service = (UserService) applicationContext.getBean("userServiceImpl");
+            UserService userService = service.deletetest(x);
             System.out.println("删除成功");
         }//将x每次的值给id，x循环的同时将在这个范围内的数据删除。
     }
@@ -97,12 +97,12 @@ public class OneTest {
     @Test//批量更新
     public void test_update_test(){
         for (int x=1;x<10;x++){
-            Mapper mapper = applicationContext.getBean(Mapper.class);
+            UserService service = (UserService) applicationContext.getBean("userServiceImpl");
             User user = new User();
             user.setId(4);
             user.setName("22");
             user.setPassword("33");
-            mapper.updatetest(user);
+            service.updatetest(user);
             System.out.println("更新完成");
         }//对数据库中id在x的这个范围内的数据进行批量更新
     }

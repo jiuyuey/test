@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pojo.User;
+import service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +11,13 @@ import java.util.List;
 public class TwoTest {
 
     ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
-    Mapper mapper = (Mapper) ctx.getBean("mapper");
+    UserService userService = (UserService) ctx.getBean("userServiceImpl");
 
     @Test//批量增加
     public void test_insert_test()throws Exception{
-        for (int y = 0;y <= 3000;y++) {
+        for (int y = 0;y <= 3;y++) {
             List<User> list = new ArrayList<>();
-            for (int x = 0;x <= 10000;x++){
+            for (int x = 0;x <= 10;x++){
                 User user = new User();
                 user.setName("dhdshtrhtjhdyd");
                 user.setPassword("dggedagergbergbg");
@@ -24,7 +25,7 @@ public class TwoTest {
                 user.setUpdateat(2018);
                 list .add(user);
             }
-            mapper.inserttest(list);
+            userService.inserttest(list);
         }
     }
 }
