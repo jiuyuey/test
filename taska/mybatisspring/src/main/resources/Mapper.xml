@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Dao.Mapper">
+<!--查询-->
+    <select id="findById" parameterType="int"
+            resultType="pojo.User">
+            SELECT * FROM user<where>
+                 <if test="name != null and name != ''">and name=#{name}</if>
+             </where>
+    </select>
+<!--姓名查询-->
+    <select id="findAll" parameterType="string"
+            resultType="pojo.User">
+           SELECT * FROM user WHERE name=#{name}
+    </select>
+<!--删除-->
+    <select id="delete"
+            resultType="pojo.User">
+           DELETE FROM user <where>
+           <if test="id != null and id != ''">id=#{id}</if>
+           <if test="name != null and name != ''">and name=#{name}</if>
+    </where>
+    </select>
+<!--更新-->
+    <select id="update"
+            resultType="pojo.User">
+            update user SET name=#{name},password=#{password} where id=#{id};
+    </select>
+<!--查询全部-->
+    <select id="all"
+            resultType="pojo.User">
+           SELECT * FROM  user ;
+    </select>
+<!--增加-->
+    <select id="insert" resultType="pojo.User">
+           INSERT INTO user (id,name,password,createat,updateat) VALUES (#{id},#{name},#{password},#{createat},#{updateat});
+    </select>
+<!--批量增-->
+    <select id="inserttest" resultType="pojo.User">
+           INSERT INTO user (id,name,password,createat,updateat) VALUES
+           <foreach collection="list" item="item" separator="," index="index">
+           (#{item.id},#{item.name},#{item.password},#{item.createat},#{item.updateat})
+           </foreach>
+    </select>
+
+<!--批量删除-->
+    <select id="deletetest"
+            resultType="pojo.User">
+           DELETE FROM user where id=#{id};
+    </select>
+
+<!--批量更新-->
+    <select id="updatetest"
+            resultType="pojo.User">
+            update user SET name=#{name},password=#{password},createat=#{createat},updateat=#{updateat} where id=#{id};
+    </select>
+
+
+</mapper>
