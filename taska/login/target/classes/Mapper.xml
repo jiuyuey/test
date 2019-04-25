@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.UserMapper">
+    <resultMap id="map" type="pojo.User"><!--查询所有-->
+        <id property="id" column="id" javaType="java.lang.Integer"/>
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="pass" column="pass" javaType="java.lang.String"/>
+        <result property="gender" column="gender" javaType="java.lang.String"/>
+        <result property="age" column="age" javaType="java.lang.Integer"/>
+        <result property="address" column="address" javaType="java.lang.String"/>
+        <result property="createat" column="createat" javaType="java.lang.String"/>
+        <result property="updateat" column="updateat" javaType="java.lang.String"/>
+    </resultMap>
+
+    <resultMap id="map1" type="pojo.Admin">
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="pass" column="pass" javaType="java.lang.String"/>
+    </resultMap>
+
+    <resultMap id="map2" type="pojo.User">
+        <id property="id" column="id" javaType="java.lang.Integer"/>
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="pass" column="pass" javaType="java.lang.String"/>
+        <result property="gender" column="gender" javaType="java.lang.String"/>
+        <result property="age" column="age" javaType="java.lang.Integer"/>
+        <result property="address" column="address" javaType="java.lang.String"/>
+        <result property="createat" column="createat" javaType="java.lang.String"/>
+        <result property="updateat" column="updateat" javaType="java.lang.String"/>
+    </resultMap>
+
+    <resultMap id="map3" type="pojo.User">
+        <id property="id" column="id" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <resultMap id="map4" type="pojo.User">
+        <id property="id" column="id" javaType="java.lang.Integer"/>
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="pass" column="pass" javaType="java.lang.String"/>
+        <result property="gender" column="gender" javaType="java.lang.String"/>
+        <result property="age" column="age" javaType="java.lang.Integer"/>
+        <result property="address" column="address" javaType="java.lang.String"/>
+        <result property="createat" column="createat" javaType="java.lang.String"/>
+        <result property="updateat" column="updateat" javaType="java.lang.String"/>
+    </resultMap>
+
+    <!--姓名查询-->
+    <select id="finAll" parameterType="string"
+            resultType="pojo.User">
+           SELECT * FROM copy WHERE name=#{name};
+    </select>
+    <!--查询-->
+    <select id="selectAll" resultMap="map">
+         select * from  copy limit #{Start},#{pageSize};
+    </select>
+    <!--查询-->
+    <select id="findThe"  resultMap="map1" >
+        SELECT * FROM management where name=#{name}and pass=#{pass}
+    </select>
+    <!--修改-->
+    <select id="update" resultMap="map2">
+        UPDATE copy SET name=#{name},pass=#{pass},gender=#{gender},age=#{age},address=#{address},createat=#{createat},updateat=#{updateat} where id=#{id}
+    </select>
+    <!--删除-->
+    <select id="delete" resultMap="map3">
+        DELETE FROM copy where id=#{id}
+    </select>
+    <!--增加-->
+    <select id="insert" resultMap="map4">
+        insert into copy (id,name,pass,gender,age,address,createat,updateat) values (#{id},#{name},#{pass},#{gender},#{age},#{address},#{createat},#{updateat})
+    </select>
+</mapper>
