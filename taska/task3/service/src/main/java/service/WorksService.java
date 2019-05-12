@@ -1,5 +1,6 @@
 package service;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import pojo.Works;
 import pojo.WorksExample;
@@ -22,7 +23,11 @@ public interface WorksService {
 
     Works selectByPrimaryKey(Integer id);
 
+    int updateByExampleSelective(@Param("record") Works record, @Param("example") WorksExample example);
+
+    int updateByExample(@Param("record") Works record, @Param("example") WorksExample example);
+
     int updateByPrimaryKeySelective(Works record);
 
-    int updateByPrimaryKey(Works record);
+    int baUpdate(List<Works> list);
 }

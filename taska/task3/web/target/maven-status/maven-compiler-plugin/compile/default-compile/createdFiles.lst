@@ -1,0 +1,11 @@
+controller\backgroundcontroller\UserController.class
+controller\backgroundcontroller\ModuleController.class
+controller\messagecontroller\CustomExceptionler.class
+controller\messagecontroller\PictureController.class
+controller\messagecontroller\MessageController.class
+controller\workscontroller\WorksController.class
+controller\backgroundcontroller\LoginController.class
+controller\studiocontroller\StudioController.class
+controller\messagecontroller\CustomException.class
+controller\workscontroller\CollectionController.class
+controller\workscontroller\LevelController.class

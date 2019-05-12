@@ -13,6 +13,8 @@ public class Works {
 
     private String edit;
 
+    private Integer uid;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class Works {
 
     public void setEdit(String edit) {
         this.edit = edit == null ? null : edit.trim();
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 }

@@ -1,12 +1,11 @@
 package dao;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import pojo.Works;
 import pojo.WorksExample;
 
 import java.util.List;
-@Repository
+
 public interface WorksMapper {
     long countByExample(WorksExample example);
 
@@ -26,7 +25,9 @@ public interface WorksMapper {
 
     int updateByExample(@Param("record") Works record, @Param("example") WorksExample example);
 
-    int updateByPrimaryKeySelective(Works record);
+    int updateByPrimaryKeySelective(Works record, WorksExample example);
 
-    int updateByPrimaryKey(Works record);
+    int baUpdate(List<Works> list);
+
+    int updateByPrimaryKeySelective(Works record);
 }

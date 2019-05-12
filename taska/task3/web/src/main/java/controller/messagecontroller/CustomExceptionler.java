@@ -1,5 +1,6 @@
 package controller.messagecontroller;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,17 +21,19 @@ public class CustomExceptionler implements HandlerExceptionResolver{
         ////如果该 异常类型不是系统 自定义的异常，构造一个自定义的异常类型（信息为“未知错误”）
         //message="未知错误";
         //}
-
+        Logger logger=Logger.getLogger(CustomExceptionler.class);
+        logger.info(ex);
         //上边代码变为
         RuntimeException runtimeException;//获取异常错误提示，逆向生成中的example中带有异常抛出
         if(ex instanceof CustomException){//判断对象是否为特定类的实例
             runtimeException = (RuntimeException) ex;//
+
         }else{
             runtimeException = new RuntimeException("未知错误");//将异常错误转换成文本位置错误。
         }
 
         String message = runtimeException.getMessage();//获取错误信息并转换成字符串
-
+        logger.info(message);
         ModelAndView mm = new ModelAndView();//新建一个视图对象
 
         mm.addObject("message", message);//将错误信息传到页面

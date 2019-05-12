@@ -56,7 +56,17 @@ public class WorksServiceImpe implements WorksService {
     }
 
     @Override
-    public int updateByPrimaryKey(Works record) {
-        return worksMapper.updateByPrimaryKey(record);
+    public int baUpdate(List<Works> list) {
+        return worksMapper.baUpdate(list);
+    }
+
+    @Override
+    public int updateByExampleSelective(Works record, WorksExample example) {
+        return worksMapper.updateByPrimaryKeySelective(record,example);
+    }
+
+    @Override
+    public int updateByExample(Works record, WorksExample example) {
+        return worksMapper.updateByExample(record,example);
     }
 }
