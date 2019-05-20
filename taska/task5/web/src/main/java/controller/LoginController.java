@@ -11,6 +11,8 @@ import pojo.User;
 import pojo.UserExample;
 import service.UserService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -68,7 +70,7 @@ public class LoginController {
 
 
     @RequestMapping(value = "/u/registered",method = RequestMethod.POST)//注册界面
-    public ModelAndView registered(String name, String password, HttpServletResponse response){
+    public ModelAndView registered(String name, String password){
         ModelAndView mo = new ModelAndView();
         logger.info(name);
         logger.info(password);
@@ -111,6 +113,21 @@ public class LoginController {
             mo.setViewName("registered");
         }
         return mo;
+    }
+
+
+    @RequestMapping(value = "/u/exit",method = RequestMethod.GET)
+    public ModelAndView exit(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView exit = new ModelAndView();
+
+        Cookie cookie = CookieController.getCookie("name",request);//遍历出叫name的cookie
+        String token = cookie.getValue();//取出cookie中的值
+
+        CookieController.deletaCookie("name",token,response);//替换掉这个cookie
+        
+        exit.setViewName("index");
+        return exit;
+
     }
 
 

@@ -24,6 +24,7 @@ public class CookieController {
         cookie.setPath("/");
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
+        response.addCookie(cookie);
     }
 
     public static Cookie getCookie(String name, HttpServletRequest request){

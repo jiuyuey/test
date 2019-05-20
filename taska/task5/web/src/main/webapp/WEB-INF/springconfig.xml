@@ -24,6 +24,7 @@
             <mvc:exclude-mapping path="/u/registered"/>
             <mvc:exclude-mapping path="/u/log"/>
             <mvc:exclude-mapping path="/u/regis"/>
+            <mvc:exclude-mapping path="/u/exit"/>
             <!--<mvc:exclude-mapping path="/u/vip"/>-->
             <bean id="Intercept" class="Intercept.IntercepeController"/>
         </mvc:interceptor>
