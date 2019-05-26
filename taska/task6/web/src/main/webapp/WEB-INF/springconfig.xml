@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd ">
+    <mvc:annotation-driven/>
+
+
+    <!-- 配置静态资源路径 -->
+    <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:default-servlet-handler/>
+    <!--静态资源映射，不然由于springmvc拦截了所有请求。会访问不到图片等静态资源-->
+
+    <context:component-scan base-package="controller"/>
+
+    <context:annotation-config/>
+
+     <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/u/**"/>
+
+            <mvc:exclude-mapping path="/u/login"/>
+            <mvc:exclude-mapping path="/u/registered"/>
+            <mvc:exclude-mapping path="/u/log"/>
+            <mvc:exclude-mapping path="/u/regis"/>
+            <mvc:exclude-mapping path="/u/exit"/>
+            <!--<mvc:exclude-mapping path="/u/vip"/>-->
+            <bean id="Intercept" class="Intercept.IntercepeController"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"><!--tiles的路径配置-->
+        <property name="definitions" value="/WEB-INF/tiles.xml"/>
+    </bean>
+    <!-- 代替InternalResourceViewResolver -->
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+        <!--优先启动tiles的视图解析器-->
+        <property name="order" value="1"/>
+    </bean>
+
+    <!--url前后缀拼接-->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
+        <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
+
+    <!--图片上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"><!--文件上传解析-->
+        <property name="defaultEncoding" value="UTF-8"/><!--默认编码utf8-->
+        <!-- 指定所上传文件的总大小,单位字节。-->
+        <property name="maxUploadSize" value="5242880"/><!--上传文件最大值-->
+        <!--大于该大小的文件先缓存到硬盘-->
+        <property name="maxInMemorySize" value="1024000"/><!--储存文件最大值-->
+    </bean>
+
+    <!-- 全局异常处理 -->
+    <!--<bean class="controller.messagecontroller.CustomExceptionler"></bean>-->
+
+
+
+
+
+</beans>

@@ -1,0 +1,76 @@
+//package com.wj.MemCachedClient;
+//
+//import java.util.Date;
+//
+//import com.danga.MemCached.MemCachedClient;
+//import com.danga.MemCached.SockIOPool;
+//
+//public class MemcachedHelper {
+//    // 构建缓存客户端
+//    private static MemCachedClient cachedClient = new MemCachedClient();
+//    // 单例模式实现客户端管理类
+//    private static MemcachedHelper INSTANCE = new MemcachedHelper();
+//
+//    private MemcachedHelper() {}
+//
+//    /**
+//     * 获取缓存管理器唯一实例
+//     * @param servers   设置缓存服务器列表，当使用分布式缓存的时，可以指定多个缓存服务器。（这里应该设置为多个不同的服务器）
+//     * @return
+//     */
+//    public static MemcachedHelper getInstance(String[] servers) {
+//        // 初始化SockIOPool，管理memcached的连接池
+//        SockIOPool pool = SockIOPool.getInstance();
+//
+//        pool.setServers(servers);
+//        pool.setFailover(true);
+//        pool.setInitConn(10); // 设置初始连接
+//        pool.setMinConn(5);// 设置最小连接
+//        pool.setMaxConn(250); // 设置最大连接
+//        pool.setMaxIdle(1000 * 60 * 60 * 3); // 设置每个连接最大空闲时间3个小时
+//        pool.setMaintSleep(30);
+//        pool.setNagle(false);
+//        pool.setSocketTO(3000);
+//        pool.setAliveCheck(true);
+//        pool.initialize();
+//        return INSTANCE;
+//    }
+//
+//    public void add(String key, Object value) {
+//        cachedClient.set(key, value);
+//    }
+//
+//    public void add(String key, Object value, int milliseconds) {
+//        cachedClient.set(key, value, milliseconds);
+//    }
+//
+//    public void remove(String key) {
+//        cachedClient.delete(key);
+//    }
+//
+//    @SuppressWarnings("deprecation")
+//    public void remove(String key, int milliseconds) {
+//        cachedClient.delete(key, milliseconds, new Date());
+//    }
+//
+//    public void update(String key, Object value, int milliseconds) {
+//        cachedClient.replace(key, value, milliseconds);
+//    }
+//
+//    public void update(String key, Object value) {
+//        cachedClient.replace(key, value);
+//    }
+//
+//    public Object get(String key) {
+//        return cachedClient.get(key);
+//    }
+//
+//    public static void main(String[] args) {
+//        //将对象加入到memcached缓存
+//        cachedClient.add("keke", "This is a test String");
+//        //从memcached缓存中按key值取对象
+//        String result  = (String) cachedClient.get("keke");
+//
+//        System.out.println(result);
+//    }
+//}
