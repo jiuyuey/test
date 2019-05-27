@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ProfessionalMapper">
+  <resultMap id="BaseResultMap" type="pojo.Professional">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="pathhhh" jdbcType="VARCHAR" property="pathhhh" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="threshold" jdbcType="INTEGER" property="threshold" />
+    <result column="easy" jdbcType="VARCHAR" property="easy" />
+    <result column="growth" jdbcType="VARCHAR" property="growth" />
+    <result column="scarce" jdbcType="VARCHAR" property="scarce" />
+    <result column="ayear" jdbcType="VARCHAR" property="ayear" />
+    <result column="threeyears" jdbcType="VARCHAR" property="threeyears" />
+    <result column="fiveyears" jdbcType="VARCHAR" property="fiveyears" />
+    <result column="leam" jdbcType="VARCHAR" property="leam" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, path, pathhhh, name, introduction, threshold, easy, growth, scarce, ayear, threeyears, 
+    fiveyears, leam
+  </sql>
+  <select id="selectByExample" parameterType="pojo.ProfessionalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from professional
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from professional
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from professional
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="pojo.ProfessionalExample">
+    delete from professional
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pojo.Professional">
+    insert into professional (id, path, pathhhh, 
+      name, introduction, threshold, 
+      easy, growth, scarce, 
+      ayear, threeyears, fiveyears, 
+      leam)
+    values (#{id,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{pathhhh,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{threshold,jdbcType=INTEGER}, 
+      #{easy,jdbcType=VARCHAR}, #{growth,jdbcType=VARCHAR}, #{scarce,jdbcType=VARCHAR}, 
+      #{ayear,jdbcType=VARCHAR}, #{threeyears,jdbcType=VARCHAR}, #{fiveyears,jdbcType=VARCHAR}, 
+      #{leam,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Professional">
+    insert into professional
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="pathhhh != null">
+        pathhhh,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="threshold != null">
+        threshold,
+      </if>
+      <if test="easy != null">
+        easy,
+      </if>
+      <if test="growth != null">
+        growth,
+      </if>
+      <if test="scarce != null">
+        scarce,
+      </if>
+      <if test="ayear != null">
+        ayear,
+      </if>
+      <if test="threeyears != null">
+        threeyears,
+      </if>
+      <if test="fiveyears != null">
+        fiveyears,
+      </if>
+      <if test="leam != null">
+        leam,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="pathhhh != null">
+        #{pathhhh,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="threshold != null">
+        #{threshold,jdbcType=INTEGER},
+      </if>
+      <if test="easy != null">
+        #{easy,jdbcType=VARCHAR},
+      </if>
+      <if test="growth != null">
+        #{growth,jdbcType=VARCHAR},
+      </if>
+      <if test="scarce != null">
+        #{scarce,jdbcType=VARCHAR},
+      </if>
+      <if test="ayear != null">
+        #{ayear,jdbcType=VARCHAR},
+      </if>
+      <if test="threeyears != null">
+        #{threeyears,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveyears != null">
+        #{fiveyears,jdbcType=VARCHAR},
+      </if>
+      <if test="leam != null">
+        #{leam,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pojo.ProfessionalExample" resultType="java.lang.Long">
+    select count(*) from professional
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update professional
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.path != null">
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pathhhh != null">
+        pathhhh = #{record.pathhhh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null">
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.threshold != null">
+        threshold = #{record.threshold,jdbcType=INTEGER},
+      </if>
+      <if test="record.easy != null">
+        easy = #{record.easy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.growth != null">
+        growth = #{record.growth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scarce != null">
+        scarce = #{record.scarce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ayear != null">
+        ayear = #{record.ayear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.threeyears != null">
+        threeyears = #{record.threeyears,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fiveyears != null">
+        fiveyears = #{record.fiveyears,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leam != null">
+        leam = #{record.leam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update professional
+    set id = #{record.id,jdbcType=INTEGER},
+      path = #{record.path,jdbcType=VARCHAR},
+      pathhhh = #{record.pathhhh,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      threshold = #{record.threshold,jdbcType=INTEGER},
+      easy = #{record.easy,jdbcType=VARCHAR},
+      growth = #{record.growth,jdbcType=VARCHAR},
+      scarce = #{record.scarce,jdbcType=VARCHAR},
+      ayear = #{record.ayear,jdbcType=VARCHAR},
+      threeyears = #{record.threeyears,jdbcType=VARCHAR},
+      fiveyears = #{record.fiveyears,jdbcType=VARCHAR},
+      leam = #{record.leam,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Professional">
+    update professional
+    <set>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="pathhhh != null">
+        pathhhh = #{pathhhh,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="threshold != null">
+        threshold = #{threshold,jdbcType=INTEGER},
+      </if>
+      <if test="easy != null">
+        easy = #{easy,jdbcType=VARCHAR},
+      </if>
+      <if test="growth != null">
+        growth = #{growth,jdbcType=VARCHAR},
+      </if>
+      <if test="scarce != null">
+        scarce = #{scarce,jdbcType=VARCHAR},
+      </if>
+      <if test="ayear != null">
+        ayear = #{ayear,jdbcType=VARCHAR},
+      </if>
+      <if test="threeyears != null">
+        threeyears = #{threeyears,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveyears != null">
+        fiveyears = #{fiveyears,jdbcType=VARCHAR},
+      </if>
+      <if test="leam != null">
+        leam = #{leam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Professional">
+    update professional
+    set path = #{path,jdbcType=VARCHAR},
+      pathhhh = #{pathhhh,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      threshold = #{threshold,jdbcType=INTEGER},
+      easy = #{easy,jdbcType=VARCHAR},
+      growth = #{growth,jdbcType=VARCHAR},
+      scarce = #{scarce,jdbcType=VARCHAR},
+      ayear = #{ayear,jdbcType=VARCHAR},
+      threeyears = #{threeyears,jdbcType=VARCHAR},
+      fiveyears = #{fiveyears,jdbcType=VARCHAR},
+      leam = #{leam,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
