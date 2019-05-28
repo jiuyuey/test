@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <!-- 布局 -->
+    <!--复用模板-->
+    <definition name="baes-complay" template="/WEB-INF/template.jsp">
+    </definition>
+    <!--首页-->
+    <definition name="index" extends="baes-complay">
+        <put-attribute name="header" value="/static/TaskFourTeen/header1.jsp"/>
+        <put-attribute name="body" value="/static/TaskFourTeen/body1.jsp"/>
+        <put-attribute name="footer" value="/static/TaskFourTeen/footer1.jsp"/>
+    </definition>
+    <!--职业-->
+    <definition name="job" extends="baes-complay">
+        <put-attribute name="header" value="/static/TaskFourTeen/header2.jsp"/>
+        <put-attribute name="body" value="/static/TaskFourTeen/body2.jsp"/>
+        <put-attribute name="footer" value="/static/TaskFourTeen/footer2.jsp"/>
+    </definition>
+    <!--推荐-->
+    <definition name="companyy" extends="baes-complay">
+        <put-attribute name="header" value="/static/TaskFourTeen/header3.jsp"/>
+        <put-attribute name="body" value="/static/TaskFourTeen/body3.jsp"/>
+        <put-attribute name="footer" value="/static/TaskFourTeen/footer3.jsp"/>
+    </definition>
+
+    <!--登录-->
+    <definition name="login" extends="baes-complay">
+        <put-attribute name="header" value="/static/TaskFourTeen/header1.jsp"/>
+        <put-attribute name="body" value="/static/TaskFourTeen/login.jsp"/>
+        <put-attribute name="footer" value="/static/TaskFourTeen/footer1.jsp"/>
+    </definition>
+
+    <!--注册-->
+    <definition name="registered" extends="baes-complay">
+        <put-attribute name="header" value="/static/TaskFourTeen/header1.jsp"/>
+        <put-attribute name="body" value="/static/TaskFourTeen/registered.jsp"/>
+        <put-attribute name="footer" value="/static/TaskFourTeen/footer1.jsp"/>
+    </definition>
+
+    <!--vip-->
+    <definition name="vipvip" extends="baes-complay">
+        <put-attribute name="header" value="/static/TaskFourTeen/header3.jsp"/>
+        <put-attribute name="body" value="/static/TaskFourTeen/vip.jsp"/>
+        <put-attribute name="footer" value="/static/TaskFourTeen/footer3.jsp"/>
+    </definition>
+
+    <definition name="error" extends="baes-complay">
+        <put-attribute name="header" value="/static/TaskFourTeen/header3.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/error.jsp"/>
+        <put-attribute name="footer" value="/static/TaskFourTeen/footer3.jsp"/>
+    </definition>
+
+</tiles-definitions>

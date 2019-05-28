@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="dao"/>
+    <context:component-scan base-package="service"/>
+
+    <!--RMI服务器端-->
+    <bean id="Professional" class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="ProfessionalRmi"/><!--这里的Rmi要和客户端的url后面的一样-->
+        <property name="service" ref="professionalServiceImpe"/>
+        <property name="serviceInterface" value="service.ProfessionalService"/><!--访问远程服务的类的抽象基类-->
+        <property name="registryPort" value="6666"/><!--端口要一致-->
+    </bean>
+
+    <bean id="Recommended" class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="RecommendedRmi"/><!--这里的Rmi要和客户端的url后面的一样-->
+        <property name="service" ref="recommendedServiceImpe"/>
+        <property name="serviceInterface" value="service.RecommendedService"/><!--访问远程服务的类的抽象基类-->
+        <property name="registryPort" value="7777"/><!--端口要一致-->
+    </bean>
+
+    <bean id="Students" class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="StudentsRmi"/><!--这里的Rmi要和客户端的url后面的一样-->
+        <property name="service" ref="studentsServiceImpe"/>
+        <property name="serviceInterface" value="service.StudentsService"/><!--访问远程服务的类的抽象基类-->
+        <property name="registryPort" value="8888"/><!--端口要一致-->
+    </bean>
+
+    <bean id="User" class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="UserRmi"/><!--这里的Rmi要和客户端的url后面的一样-->
+        <property name="service" ref="userServiceImpe"/>
+        <property name="serviceInterface" value="service.UserService"/><!--访问远程服务的类的抽象基类-->
+        <property name="registryPort" value="9999"/><!--端口要一致-->
+    </bean>
+
+
+    <!--服务器配置-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/page?useUnicode=true&amp;useSSL=true&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8&amp;allowMultiQueries=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="yeshiqing"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:/mapper/*.xml"/>
+        <!--分页插件-->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value>helperDialect=mysql
+                            rowBoundsWithCount=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+    <!--扫描器配置-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="dao"/>
+    </bean>
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+
+
+
+    <!--&lt;!&ndash;&lt;!&ndash; 属性配置   &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash; 开启注解扫描 &ndash;&gt;&ndash;&gt;-->
+    <!--<context:component-scan base-package="service.serivcelmpe" />&lt;!&ndash;扫描service里面的bean&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash; 加载xmemcache.properties &ndash;&gt;&ndash;&gt;-->
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>/WEB-INF/xmemcached.properties</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;xmemcache&ndash;&gt;-->
+    <!--&lt;!&ndash; # memcachedClientBuilder failureMode=false 是否启用failure模式，true为启用，默认不启用。所谓failure模式是指，-->
+		 <!--#connectionPoolSize=1 nio连接池大小,默认对一个memcached节点只有一个连接，这在通常情况 下已经有非常优异的表现。-->
+		  <!--但是在典型的高并发环境下,nio的单连接也会遇到性能瓶颈。可通过调整连接池数量,允许建立多个连接到同一个memcached节点，-->
+		  <!--但是请注意，这些连接之间是不同步的， 因此你的应用需要自己保证数据更新的同步 &ndash;&gt;-->
+    <!--<bean id="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder"-->
+          <!--p:connectionPoolSize="${memcached.connectionPoolSize}" p:failureMode="${memcached.failureMode}">-->
+        <!--&lt;!&ndash; XMemcachedClientBuilder have two arguments.First is server list,and-->
+            <!--second is weights array. &ndash;&gt;-->
+        <!--&lt;!&ndash; # 服务器节点:形如："主节点1:port,备份节点1:port 主节点2:port,备份节点2:port"的字符串，-->
+             <!--#可以不设置备份节点，主备节点逗号隔开，不同分组空格隔开-->
+             <!--#由于该应用功能是加载数据，可以只考虑分布式，即以空格分隔ip的配置方式，不考虑主备关系 &ndash;&gt;-->
+        <!--<constructor-arg>-->
+            <!--<list>-->
+                <!--<bean class="java.net.InetSocketAddress">-->
+                    <!--<constructor-arg>-->
+                        <!--<value>${memcached.server1.host}</value>-->
+                    <!--</constructor-arg>-->
+                    <!--<constructor-arg>-->
+                        <!--<value>${memcached.server1.port}</value>-->
+                    <!--</constructor-arg>-->
+                <!--</bean>-->
+                <!--&lt;!&ndash;<bean class="java.net.InetSocketAddress">&ndash;&gt;-->
+                <!--&lt;!&ndash;<constructor-arg>&ndash;&gt;-->
+                <!--&lt;!&ndash;<value>${memcached.server2.host}</value>&ndash;&gt;-->
+                <!--&lt;!&ndash;</constructor-arg>&ndash;&gt;-->
+                <!--&lt;!&ndash;<constructor-arg>&ndash;&gt;-->
+                <!--&lt;!&ndash;<value>${memcached.server2.port}</value>&ndash;&gt;-->
+                <!--&lt;!&ndash;</constructor-arg>&ndash;&gt;-->
+                <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+        <!--&lt;!&ndash; # 与servers对应的节点的权重,格式同服务器节点,权重是用来调节memcached的负载，设置的权重越高，-->
+         <!--该memcached节点存储的数据将越多，所承受的负载越大。 &ndash;&gt;-->
+        <!--<constructor-arg>-->
+            <!--<list>-->
+                <!--<value>${memcached.server1.weight}</value>-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+        <!--&lt;!&ndash; (1) 协议工厂 net.rubyeye.xmemcached.command.BinaryCommandFactory(二进制)-->
+             <!--(2) 协议工厂 net.rubyeye.xmemcached.command.TextCommandFactory(文本)-->
+             <!--(3) 协议工厂 net.rubyeye.xmemcached.command.KestrelCommandFactory(可靠获取) &ndash;&gt;-->
+        <!--<property name="commandFactory">-->
+            <!--<bean class="net.rubyeye.xmemcached.command.TextCommandFactory"/>-->
+        <!--</property>-->
+        <!--&lt;!&ndash; (1) net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator 分布策略，一致性哈希（用于增加主机时降低未命中率问题的解决）-->
+             <!--(2) ArrayMemcachedSessionLocator(默认) ,默认分布的策略是按照key的哈希值模以连接数得到的余数，对应的连接就是将要存储的节点  &ndash;&gt;-->
+        <!--<property name="sessionLocator">-->
+            <!--<bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>-->
+        <!--</property>-->
+        <!--&lt;!&ndash; # 序列化转换器，默认使用net.rubyeye.xmemcached.transcoders.SerializingTranscoder &ndash;&gt;-->
+        <!--<property name="transcoder">-->
+            <!--<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; Use factory bean to build memcached client 当一个memcached节点down掉的时候，-->
+    <!--发往这个节点的请求将直接失败，而不是发送给下一个有效的memcached节点。 &ndash;&gt;-->
+    <!--<bean id="memcachedClient" factory-bean="memcachedClientBuilder"-->
+          <!--factory-method="build" destroy-method="shutdown"/>-->
+
+
+
+    <!--0000000redis00000000000000-->
+    <!--1,如果你有多个数据源需要通过<context:property-placeholder管理，且不愿意放在一个配置文件里，那么一定要加上ignore-unresolvable=“true" -->
+    <context:component-scan base-package="service.serivcelmpe" /><!--扫描service里面的bean-->
+    <context:property-placeholder location="classpath:/redis.properties" ignore-unresolvable="true" />
+    <!--2,注意新版本2.3以后，JedisPoolConfig的property name，不是maxActive而是maxTotal，而且没有maxWait属性，建议看一下Jedis源码或百度。 -->
+    <!-- redis连接池配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--最大空闲数 -->
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <!--连接池的最大数据库连接数 -->
+        <property name="maxTotal" value="${redis.maxTotal}" />
+        <!--最大建立连接等待时间 -->
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
+        <!--逐出连接的最小空闲时间 默认1800000毫秒(30分钟) -->
+        <property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}" />
+        <!--每次逐出检查时 逐出的最大数目 如果为负数就是 : 1/abs(n), 默认3 -->
+        <property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}" />
+        <!--逐出扫描的时间间隔(毫秒) 如果为负数,则不运行逐出线程, 默认-1 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" />
+    </bean>
+
+    <!--redis连接工厂 -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          destroy-method="destroy"><!--class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"-->
+        <property name="poolConfig" ref="jedisPoolConfig"></property>
+        <!--IP地址 -->
+        <property name="hostName" value="${redis.host.ip}"></property>
+        <!--端口号 -->
+        <property name="port" value="${redis.port}"></property>
+        <!--如果Redis设置有密码 -->
+        <!-- <property name="password" value="${redis.password}" /> -->
+        <!--客户端超时时间单位是毫秒 -->
+        <property name="timeout" value="${redis.timeout}"></property>
+    </bean>
+
+    <!-- redis操作模板，这里采用尽量面向对象的模板 -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory" />
+        <!-- 指定redis中key-value的序列化方式（此处省略） -->
+    </bean>
+
+    <!--&lt;!&ndash;redis工具类 （也可以通过注解的方式注入） &ndash;&gt;-->
+    <!--<bean id="redisUtil" class="controller.util.RedisUtil">-->
+    <!--<property name="redisTemplate" ref="redisTemplate" />-->
+    <!--</bean>-->
+
+
+
+</beans>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <!--<bean id="RMIServiceImpe" class="service.serivcelmpe.RMIServiceImpe"/>-->
+    <!--&lt;!&ndash;将一个类发布为rim服务&ndash;&gt;-->
+    <!--<bean id="myRMIServer" class="org.springframework.remoting.rmi.RmiServiceExporter">-->
+        <!--<property name="serviceName" value="Rmi"/>&lt;!&ndash;这里的Rmi要和客户端的url后面的一样&ndash;&gt;-->
+        <!--<property name="service" ref="RMIServiceImpe"/>-->
+        <!--<property name="serviceInterface" value="service.RmiService"/>&lt;!&ndash;访问远程服务的类的抽象基类&ndash;&gt;-->
+        <!--<property name="registryPort" value="8888"/>&lt;!&ndash;端口要一致&ndash;&gt;-->
+    <!--</bean>-->
+
+
+
+        <!--&lt;!&ndash; 客户端 &ndash;&gt;-->
+    <!--<bean id="myRMIClient"  class="org.springframework.remoting.rmi.RmiProxyFactoryBean">-->
+        <!--<property name="serviceInterface" value="service.RmiService"/>&lt;!&ndash;访问远程服务的类的抽象基类&ndash;&gt;-->
+        <!--<property name="serviceUrl" value="rmi://127.0.0.1:8888/Rmi"/>&lt;!&ndash;客户端接收这个url里面的值&ndash;&gt;-->
+    <!--</bean>-->
+
+
+
+
+</beans>

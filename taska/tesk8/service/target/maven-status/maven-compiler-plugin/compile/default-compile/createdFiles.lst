@@ -1,0 +1,11 @@
+RMIService.class
+service\RmiService.class
+service\serivcelmpe\StudentsServiceImpe.class
+service\UserService.class
+service\serivcelmpe\RecommendedServiceImpe.class
+service\serivcelmpe\ProfessionalServiceImpe.class
+service\serivcelmpe\RMIServiceImpe.class
+service\StudentsService.class
+service\serivcelmpe\UserServiceImpe.class
+service\RecommendedService.class
+service\ProfessionalService.class

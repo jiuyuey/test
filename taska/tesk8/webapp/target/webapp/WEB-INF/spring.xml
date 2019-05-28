@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd ">
+
+    <!--客户端-->
+    <bean id="ProfessionalService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceInterface" value="controller.service.ProfessionalService"/>
+        <property name="serviceUrl" value="rmi://127.0.0.1:6666/ProfessionalRmi"/>
+    </bean>
+
+    <bean id="RecommendedService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceInterface" value="controller.service.RecommendedService"/>
+        <property name="serviceUrl" value="rmi://127.0.0.1:7777/RecommendedRmi"/>
+    </bean>
+
+    <bean id="StudentsService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceInterface" value="controller.service.StudentsService"/>
+        <property name="serviceUrl" value="rmi://127.0.0.1:8888/StudentsRmi"/>
+    </bean>
+
+    <bean id="UserService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceInterface" value="controller.service.UserService"/>
+        <property name="serviceUrl" value="rmi://127.0.0.1:9999/UserRmi"/>
+    </bean>
+
+</beans>
