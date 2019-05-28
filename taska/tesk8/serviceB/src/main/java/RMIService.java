@@ -8,5 +8,5 @@ public class RMIService {
     public static void main(String[] args) {
         new ClassPathXmlApplicationContext("classpath:mybatisconfig.xml");
     }
-    
+
 }

@@ -31,15 +31,17 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping(value = "/u/login",method = RequestMethod.POST)//登录界面
-    public ModelAndView login(String name,String password, long mang, HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public ModelAndView login(String name,String password, long verification, HttpServletResponse response, HttpServletRequest request) throws Exception {
         ModelAndView lo = new ModelAndView();
         UserExample example = new UserExample();//新建一个example对象
         UserExample.Criteria criteria = example.createCriteria();//新建条件
         criteria.andNameEqualTo(name);//获取姓名查询
-        List<User> list = userService.selectByExample(example);//查询数据库中有这个姓名
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();//请求一个cookie
         long a = (long) session.getAttribute("code");//取出code中的值
-        if (mang != 0 && mang == a){
+//        logger.info(a);
+//        logger.info(verification);
+        if (verification != 0 && verification == a){
+            List<User> list = userService.selectByExample(example);//查询数据库中有这个姓名
         if(list != null) {
             User user1 = list.get(0);//账号名字唯一
             logger.info("判断数据库中的密码与用户输入的密码一致");
@@ -49,9 +51,10 @@ public class LoginController {
                 CookieController.createCookie("name", token, response);//存放进session 的值
                 lo.addObject("message", "登录成功");
                 lo.setViewName("index");
+            }else{
+                lo.setViewName("error");
             }
-        }
-        if (PhoneFormatCheckUtils.checkEmail(name)){//检验格式是不是邮箱
+        }if (PhoneFormatCheckUtils.checkEmail(name)){//检验格式是不是邮箱
             User user1 = list.get(0);//账号名字唯一
             logger.info("判断数据库中的密码与用户输入的密码一致");
             String ssr = getMD5(password);//将密码加密
@@ -60,6 +63,8 @@ public class LoginController {
                 CookieController.createCookie("name", token, response);
                 lo.addObject("message", "登录成功");
                 lo.setViewName("index");
+            }else{
+                lo.setViewName("error");
             }
         }else{ PhoneFormatCheckUtils.isMobileNO(name);//检验格式是不是手机号码
             User user1 = list.get(0);//账号名字唯一
@@ -70,8 +75,12 @@ public class LoginController {
                 CookieController.createCookie("name", token, response);
                 lo.addObject("message", "登录成功");
                 lo.setViewName("index");
+            }else{
+                lo.setViewName("error");
             }
         }
+        }else{
+            lo.setViewName("error");
         }
         return lo;
     }
@@ -133,8 +142,8 @@ public class LoginController {
     @RequestMapping(value = "/u/validation",method = RequestMethod.POST)//获取验证码
     public ModelAndView validation(String phone, String email, HttpServletRequest request) throws IOException {
         ModelAndView va = new ModelAndView();
-        long a = Digital.codeGenerat();
-        if (PhoneFormatCheckUtils.isMobileNO(phone)){
+        long a = Digital.codeGenerat();//获取随机6位数
+        if (PhoneFormatCheckUtils.isMobileNO(phone)){//判断是不是手机
             CommonRpc.main(phone,a);
             HttpSession session = request.getSession();
             session.setAttribute("code",a);
@@ -143,7 +152,7 @@ public class LoginController {
         }else{
             va.addObject("message","失败");
         }
-        if (PhoneFormatCheckUtils.checkEmail(email)){
+        if (PhoneFormatCheckUtils.checkEmail(email)){//判断是不是邮箱
             SendCommonPostMail.main(email,a);
             HttpSession session = request.getSession();
             session.setAttribute("code",a);

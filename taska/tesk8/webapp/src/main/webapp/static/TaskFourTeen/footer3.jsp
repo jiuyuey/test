@@ -37,8 +37,7 @@
             </div>
             <div class="col-lg footer-bottom-end">
                 <span class="footer-bottom-end-top">微信公众平台</span>
-                <div class="footer-bottom-end-end"><img
-                        src="/static/TaskEight/TaskEightInexSrc/qrcode_for_gh_32213eeb65ba_1280.png">
+                <div class="footer-bottom-end-end"><img src="/static/TaskEight/TaskEightInexSrc/qrcode_for_gh_32213eeb65ba_1280.png">
                 </div>
             </div>
         </div>

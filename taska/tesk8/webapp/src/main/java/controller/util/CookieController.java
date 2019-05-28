@@ -42,7 +42,7 @@ public class CookieController {
 
     public static void createCookie(String md5,String value, HttpServletResponse response) {//cookie生成
         Cookie cookie = new Cookie(md5,value);//新建一个cookie
-        cookie.setMaxAge(300);//失效时间
+        cookie.setMaxAge(3600);//失效时间
         cookie.setPath("/");//cookie的使用路径
         response.setContentType("text/html;charset=UTF-8");//内容类型为文本
         response.setCharacterEncoding("UTF-8");//字符集为UTF-8

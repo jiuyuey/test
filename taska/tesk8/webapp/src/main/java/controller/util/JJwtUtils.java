@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.log4j.Logger;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -23,12 +24,13 @@ public class JJwtUtils {
     private static final Key signkey=new SecretKeySpec("hello".getBytes(),SignatureAlgorithm.HS512.getJcaName());
     //生成一个token
     public static  String createToken(Integer id, String logintime, long ttlMillis)throws Exception{
+        org.apache.log4j.Logger logger = Logger.getLogger(JJwtUtils.class);
         //签名算法
         SignatureAlgorithm signatureAlgorithm=SignatureAlgorithm.HS512;//签名算法，HS512为共享签名算法
         //获取当前时间
         long nowMillis=System.currentTimeMillis();
         Date now=new Date(nowMillis);
-
+//        logger.info(now);
         Map<String,Object> claims =new HashMap<String, Object>();//只允许新建一个哈希，多余的会被覆盖，允许多条值为空
         claims.put("id",id);
         claims.put("createat",logintime);
@@ -45,6 +47,7 @@ public class JJwtUtils {
         }
         return builder.compact();//生成jwt
     }
+
     //解密jwt
     public static Claims parseJWT(String jwt)throws Exception{//接收传入的jwt
         Claims claims= Jwts.parser()//

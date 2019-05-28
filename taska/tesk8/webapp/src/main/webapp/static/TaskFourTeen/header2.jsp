@@ -20,6 +20,7 @@
             <img src="/static/TaskEight/TaskEightInexSrc/矢量智能对象3.png">
             <a href="/u/log">登录</a>
             <a href="/u/regis">注册</a>
+            <a href="/u/exit">退出</a>
         </div>
     </div>
     <!--导航栏-->

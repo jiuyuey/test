@@ -9,7 +9,7 @@
     <tr>
         账号：<input type="text" name="name"><br>
         密码：<input type="text" name="password"><br>
-        验证码<input type="text" name="mang"><br>
+        验证码：<input type="text" name="verification"><br>
 <%--        <input type="text" name="validation" ><br>--%>
     </tr>
     <input type="submit" value="登录">
