@@ -1,0 +1,17 @@
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
+           targetNamespace="http://service"
+           name="service">
+
+    <component name="ServiceComponent">
+        <implementation.spring location="spring.xml"/>
+        <service name="addService">
+            <interface.java interface="service.add.Add"/>
+            <tuscany:binding.rmi uri="rmi://127.0.0.1:9999/addRMIService"/>
+        </service>
+        <service name="mangService">
+            <interface.java interface="service.mange.Mang"/>
+            <tuscany:binding.rmi uri="rmi://127.0.0.1:9999/mangRMIService"/>
+        </service>
+    </component>
+</composite>

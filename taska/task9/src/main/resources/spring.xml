@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sca="http://www.springframework.org/schema/sca"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/sca
+       http://www.osoa.org/xmlns/sca/1.0/spring-sca.xsd">
+
+    <bean id="addService" class="service.add.AddImpl"/><!--获取add的实现类-->
+    <bean id="mangService" class="service.mange.MangImpl"/><!--获取mang的实现类-->
+
+  <sca:service name="addService" type="service.add.Add" target="addService"/><!--获取类型接口，指定实现类-->
+  <sca:service name="mangService" type="service.mange.Mang" target="mangService"/>
+</beans>
