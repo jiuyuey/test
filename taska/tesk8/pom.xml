@@ -101,7 +101,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.3.18.RELEASE</version>
+            <version>5.2.20.RELEASE</version>
         </dependency>
         <!--spring对javax包下的接口和类提供的实现或子类，简化servlet的功能-->
         <dependency>
